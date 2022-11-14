@@ -6,6 +6,7 @@ const GEOCODING_API_URL = "http://api.openweathermap.org/geo/1.0/reverse?";
 const formButton = document.getElementById("generate");
 const zipInput = document.getElementById("zip");
 
+/* Fetches the data and transform JSON to js */
 async function fetchData(
   url,
   options = { method, credentials, headers, body }
@@ -19,12 +20,17 @@ async function fetchData(
   }
 }
 
+/* Get current location necessary for getting country data */
 function getLocation() {
+  /* Return a promise for getting the position */
   return new Promise((resolve, reject) => {
+    /* Store position */
     const locData = {};
+    /* Get the position and assign it to "locData" object */
     navigator.geolocation.getCurrentPosition((pos) => {
       locData.lat = pos.coords.latitude;
       locData.lon = pos.coords.longitude;
+      /* Resolve promise with object containing the position */
       resolve(locData);
     });
   });
@@ -108,16 +114,12 @@ async function postData(url = "", data) {
 function renderEntry(data) {
   /* Local variables */
   const entryContainer = document.getElementById("entry");
-  /* Clear entry container every time new entries are rendered */
-
   /* Temporary container to hold the entries,
     To enhance preformance. */
   let tempHtml = document.createDocumentFragment();
-
   /* Loop over entries that are received from the server
     while appending Dynamic Html template */
   data.forEach((entry, i) => {
-    // document.querySelector([`[data-entry="${entry.entryId}"]`]).remove();
     tempHtml.append(`
     <div id="entryHolder" data-entry="${entry.entryId}">
       <div id="date">${entry.entryDate}</div>
@@ -125,7 +127,6 @@ function renderEntry(data) {
       <div id="content">${entry.main.feels_like}</div>
     </div>`);
   });
-
   /* Get the final Html text */
   const finalHtml = tempHtml.textContent;
   /* Insert the Entry element after the first child
