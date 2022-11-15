@@ -1,10 +1,26 @@
-# Weather-Journal App Project
+# Project title
 
-## Overview
-This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI. 
+Web Journal App
 
-## Instructions
-This will require modifying the `server.js` file and the `website/app.js` file. You can see `index.html` for element references, and once you are finished with the project steps, you can use `style.css` to style your application to customized perfection.
+# Table of contents
 
-## Extras
-If you are interested in testing your code as you go, you can use `tests.js` as a template for writing and running some basic tests for your code.
+- [Project title](#project-title)
+- [Project description](#project-description)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+
+# Project description
+
+Get your location's weather information by inputing your ZIP code.
+
+# Usage
+
+- **Getting weather data**: input your ZIP code, allow access to your location
+  and click on "generate" button to display the data, If your ZIP code is invalid
+  or isn't recognaized by the API, App would fallback on your state name.
+
+# Dependencies
+
+- express
+- body-parser
+- cors
