@@ -5,6 +5,7 @@ const GEOCODING_API_URL = "http://api.openweathermap.org/geo/1.0/reverse?";
 
 const formButton = document.getElementById("generate");
 const zipInput = document.getElementById("zip");
+const feelingInput = document.getElementById("feelings");
 
 /* Fetches the data and transform JSON to js */
 async function fetchData(
@@ -119,14 +120,15 @@ function renderEntry(data) {
   let tempHtml = document.createDocumentFragment();
   /* Loop over entries that are received from the server
     while appending Dynamic Html template */
-  data.forEach((entry, i) => {
+  data.forEach((entry) => {
     tempHtml.append(`
     <div id="entryHolder" data-entry="${entry.entryId}">
       <div id="date">${entry.entryDate}</div>
       <div id="temp">${Math.round(entry.main.temp)} degrees</div>
-      <div id="content">${entry.main.feels_like}</div>
+      <div id="content">${feelingInput.value}</div>
     </div>`);
   });
+  feelingInput.value = "";
   /* Get the final Html text */
   const finalHtml = tempHtml.textContent;
   /* Insert the Entry element after the first child

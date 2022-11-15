@@ -25,11 +25,12 @@ body {
 
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: 1rem;
 
   width: 31.25rem;
+  padding: 3.125rem 0;
   background: rgba(59, 74, 107, 0.4);
 }
 
