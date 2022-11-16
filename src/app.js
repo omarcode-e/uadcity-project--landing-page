@@ -7,6 +7,10 @@ const formButton = document.getElementById("generate");
 const zipInput = document.getElementById("zip");
 const feelingInput = document.getElementById("feelings");
 
+// Create a new date instance dynamically with JS
+let d = new Date();
+let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+
 /* Fetches the data and transform JSON to js */
 async function fetchData(
   url,
@@ -123,9 +127,9 @@ function renderEntry(data) {
   data.forEach((entry) => {
     tempHtml.append(`
     <div id="entryHolder" data-entry="${entry.entryId}">
-      <div id="date">${entry.entryDate}</div>
-      <div id="temp">${Math.round(entry.main.temp)} degrees</div>
-      <div id="content">${feelingInput.value}</div>
+      <div id="date">${newDate}</div>
+      <div id="temp">${Math.round(entry.temp)} degrees</div>
+      <div id="content">${entry.feel}</div>
     </div>`);
   });
   feelingInput.value = "";
@@ -141,14 +145,19 @@ function renderEntry(data) {
 async function formButtonHandler() {
   /* Get zip code for input-field */
   const zipCode = zipInput.value;
+  const feeling = feelingInput.value || "";
   if (!zipCode) throw new Error("Zip code is invalid or empty");
   try {
     /* Post data to the server */
     /* Get weather data from "openweathermap" API */
-    postData(
-      "/all",
-      getWeatherData(zipCode, WEATHER_API_URL, API_KEY, getLocation())
+    const { main: weatherData } = await getWeatherData(
+      zipCode,
+      WEATHER_API_URL,
+      API_KEY,
+      getLocation()
     );
+    console.log(weatherData);
+    postData("/all", { zip: zipCode, temp: weatherData.temp, feel: feeling });
     /* Check for location permission before getting the data
     from the server */
     const permResult = await navigator.permissions.query({

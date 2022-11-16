@@ -27,23 +27,23 @@ app.get("/all", (req, res) => {
   res.json(projectData);
 });
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
 let i = 0;
 app.post("/all", (req, res) => {
   req.body.entryId = Math.floor(Math.random() * 1000000);
-  req.body.entryDate = newDate;
-
   /* Stops pushing the same Data-entry if the temperature
     of previous Data-entry is as same as current Data-entry */
-  const preEntry =
+  const preEntryTemp =
     projectData.entries.length === 0 || i === 0
       ? null
-      : projectData.entries[i - 1].main.temp;
-  if (req.body.main.temp !== preEntry) {
+      : projectData.entries[i - 1].temp;
+  const preEntryFeel =
+    projectData.entries.length === 0 || i === 0
+      ? null
+      : projectData.entries[i - 1].feel;
+  if (req.body.temp !== preEntryTemp || req.body.feel !== preEntryFeel) {
     projectData.entries.push(req.body);
     i++;
   }
+  console.log(projectData);
   console.log("Data recevied");
 });
