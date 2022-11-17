@@ -1,5 +1,5 @@
 /* Global Variables */
-const API_KEY = "3fb8cfbb44d01f60fd088bd49d4b55a2";
+const API_KEY = "";
 const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/weather?`;
 const GEOCODING_API_URL = "http://api.openweathermap.org/geo/1.0/reverse?";
 
